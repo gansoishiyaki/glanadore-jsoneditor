@@ -6,8 +6,13 @@ interface CardListItemProps {
 
 export default function CardListItem(props: CardListItemProps) {
   return (
-    <div>
-      {props.card.id}: {props.card.title}
-    </div>
+    <tr>
+      <td className='border px-4 py-2'>
+        {props.card.id}
+      </td>
+      <td className='border px-4 py-2'>
+        {props.card.title}
+      </td>
+    </tr>
   )
 }

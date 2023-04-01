@@ -17,12 +17,16 @@ export default function CardList(props: CardListProps) {
   }, [])
 
   return (
-    <div>
+    <table className='table-auto'>
+      <tr className='bg-gray-100'>
+        <th className='border'>ID</th>
+        <th className='border'>title</th>
+      </tr>
       {
         cards.map((item, index) => (
           <CardListItem key={item.id} card={item}></CardListItem>
         ))
       }
-    </div>
+    </table>
   )
 }

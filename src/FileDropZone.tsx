@@ -30,14 +30,16 @@ export default function FileDropZone(props: FileDropZoneProps) {
   };
 
   return (
-    <div
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-      style={{ border: isDragging ? "2px dashed red" : "2px dashed gray" }}
-    >
-      {isDragging ? "Drop here" : "Drag files here"}
-      <input type="file" onChange={handleFileSelect} />
+    <div>
+      <div
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        style={{ border: isDragging ? "2px dashed red" : "2px dashed gray" }}
+      >
+        {isDragging ? "Drop here" : "Drag files here"}
+      </div>
+      <input type="file" onChange={handleFileSelect} className="btn btn-blue"/>
     </div>
   );
 }

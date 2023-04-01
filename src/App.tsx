@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { useState } from "react";
+import FileDropZone from "./FileDropZone";
 
-function App() {
+export default function App() {
+  const [data, setData] = useState<any>(null)
+  const [type, setType] = useState(String)
+  const [showDropZone, setShowDropZone] = useState(true)
+
+  const setFile = (file: File) => {
+    if (file.type != 'application/json') {
+      console.error('Invalid file type. Please drop a JSON file.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = (event) => {
+      const fileContent = event.target?.result as string;
+      // JSONファイルの内容をパースする
+      const jsonData = JSON.parse(fileContent);
+      setShowDropZone(false);
+      setData(jsonData);
+      setType(file.name.replace('.json', ''));
+    };
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      { showDropZone && <FileDropZone setFile={setFile}/> }
     </div>
-  );
+  )
 }
-
-export default App;

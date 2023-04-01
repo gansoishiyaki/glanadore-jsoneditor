@@ -1,11 +1,11 @@
-import React from 'react';
 import './App.css';
 import { useState } from "react";
 import FileDropZone from "./FileDropZone";
+import CardList from './card/CardList';
 
 export default function App() {
-  const [data, setData] = useState<any>(null)
-  const [type, setType] = useState(String)
+  const [data, setData] = useState<any[]>([])
+  const [type, setType] = useState("")
   const [showDropZone, setShowDropZone] = useState(true)
 
   const setFile = (file: File) => {
@@ -21,14 +21,16 @@ export default function App() {
       // JSONファイルの内容をパースする
       const jsonData = JSON.parse(fileContent);
       setShowDropZone(false);
-      setData(jsonData);
+      setData(jsonData.list);
       setType(file.name.replace('.json', ''));
+      console.log(file.name);
     };
   };
 
   return (
     <div>
       { showDropZone && <FileDropZone setFile={setFile}/> }
+      { type == "cards" && <CardList data={data}/> }
     </div>
   )
 }
